@@ -1,0 +1,6 @@
+asgiref==3.12.1
+Django==6.1.1
+sqlparse==0.6.0
+djangorestframework
+django-cors-headers
+psycopg2-binary
