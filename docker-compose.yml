@@ -27,6 +27,8 @@ services:
     container_name: wastebeka_backend
     command: >
       sh -c "python manage.py migrate &&
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
