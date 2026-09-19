@@ -139,10 +139,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # Change to IsAuthenticated for production
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # Removed SessionAuthentication to allow stateless API POST requests without CSRF token
     ],
 }
 
 # CORS Settings
 CORS_ALLOW_ALL_ORIGINS = True # Change this in production
+
+# CSRF Settings for cross-origin requests (if you use session auth in the future)
+trusted_origins = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
+if trusted_origins:
+    CSRF_TRUSTED_ORIGINS = trusted_origins.split(',')
