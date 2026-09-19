@@ -74,9 +74,13 @@ import os
 
 import dj_database_url
 
+db_url = os.environ.get('DATABASE_URL')
+if not db_url:
+    db_url = 'postgres://wastebeka_user:wastebeka_pass@wastebeka_db:5432/wastebeka_db'
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgres://wastebeka_user:wastebeka_pass@wastebeka_db:5432/wastebeka_db'),
+    'default': dj_database_url.parse(
+        db_url,
         conn_max_age=600,
         conn_health_checks=True,
     )
