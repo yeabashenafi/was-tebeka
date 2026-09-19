@@ -34,11 +34,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DB_NAME=wastebeka_db
-      - DB_USER=wastebeka_user
-      - DB_PASSWORD=wastebeka_pass
-      - DB_HOST=wastebeka_db
-      - DB_PORT=5432
+      - DATABASE_URL=postgres://wastebeka_user:wastebeka_pass@wastebeka_db:5432/wastebeka_db
     depends_on:
       db:
         condition: service_healthy

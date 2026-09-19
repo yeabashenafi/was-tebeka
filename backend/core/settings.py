@@ -7,13 +7,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
+import os
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sa-!_co224b%t!!t5s*=$7vrds6i)u*#4cv!q*(bv0nkthl$8a'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-sa-!_co224b%t!!t5s*=$7vrds6i)u*#4cv!q*(bv0nkthl$8a')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition
@@ -70,15 +72,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 import os
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'wastebeka_db'),
-        'USER': os.environ.get('DB_USER', 'wastebeka_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'wastebeka_pass'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'postgres://wastebeka_user:wastebeka_pass@wastebeka_db:5432/wastebeka_db'),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
