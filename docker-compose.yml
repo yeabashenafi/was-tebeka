@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: wastebeka_db
+    environment:
+      POSTGRES_DB: wastebeka_db
+      POSTGRES_USER: wastebeka_user
+      POSTGRES_PASSWORD: wastebeka_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - wastebeka_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wastebeka_user -d wastebeka_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wastebeka_backend
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_NAME=wastebeka_db
+      - DB_USER=wastebeka_user
+      - DB_PASSWORD=wastebeka_pass
+      - DB_HOST=wastebeka_db
+      - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - wastebeka_net
+
+volumes:
+  postgres_data:
+
+networks:
+  wastebeka_net:
+    driver: bridge
