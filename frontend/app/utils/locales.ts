@@ -27,6 +27,15 @@ export const translations = {
     trustTag1: "LEGAL AID CLINICS",
     trustTag2: "CRISIS SHELTERS",
     trustTag3: "HUMAN RIGHTS MONITORS",
+    rightsMenu: "Know Your Rights",
+    rightsTitle: "Know Your Rights",
+    rightsSubTitle: "Plain-language guides to laws protecting you against domestic abuse, sexual violence, and harassment.",
+    rightsSearch: "Search laws (e.g., 'rape', 'threats')",
+    rightsEmpty: "No rights found matching your search.",
+    rightsSurvivorHeading: "Your Rights as a Survivor",
+    rightsMythRealityTitle: "Myth vs. Legal Reality",
+    rightsNeedHelp: "Need confidential help?",
+    rightsNeedHelpSub: "Was Tebeka allows you to report safely without revealing your identity. You do not have to give your name to get help.",
     footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). All rights reserved."
   },
   am: {
@@ -57,6 +66,15 @@ export const translations = {
     trustTag1: "የህግ እርዳታ ክሊኒኮች",
     trustTag2: "የችግር መጠለያዎች",
     trustTag3: "የሰብአዊ መብት ታዛቢዎች",
+    rightsMenu: "የህግ መብቶችዎ",
+    rightsTitle: "የህግ መብቶችዎ",
+    rightsSubTitle: "ስለ ቤተሰብ ውስጥ ጥቃት፣ ወሲባዊ ጥቃት እና ትንኮሳ የሚጠብቁዎትን ህጎች በቀላል ቋንቋ የሚያብራራ መመሪያ።",
+    rightsSearch: "ህጎችን ይፈልጉ (ለምሳሌ 'አስገድዶ መድፈር', 'ማስፈራሪያ')",
+    rightsEmpty: "ለፍለጋዎ የሚዛመድ ምንም መብት አልተገኘም።",
+    rightsSurvivorHeading: "የጥቃት ሰለባ መብቶችዎ",
+    rightsMythRealityTitle: "አፈታሪክ እና ህጋዊ እውነታ",
+    rightsNeedHelp: "ሚስጥራዊ እርዳታ ይፈልጋሉ?",
+    rightsNeedHelpSub: "ዋስ ጠበቃ ማንነትዎን ሳያሳውቁ ደህንነቱ በተጠበቀ ሁኔታ ሪፖርት እንዲያደርጉ ያስችልዎታል። እርዳታ ለማግኘት ስምዎን መስጠት አይጠበቅብዎትም።",
     footerRights: "&copy; 2026 ዋስ ጠበቃ (Was Tebeka)። መብቱ በህግ የተጠበቀ ነው።"
   },
   fr: {
@@ -87,6 +105,15 @@ export const translations = {
     trustTag1: "CLINIQUES JURIDIQUES",
     trustTag2: "REFUGES D'URGENCE",
     trustTag3: "OBSERVATEURS DES DROITS",
+    rightsMenu: "Connaissez Vos Droits",
+    rightsTitle: "Connaissez Vos Droits",
+    rightsSubTitle: "Guides en langage clair sur les lois vous protégeant contre la violence domestique, les agressions sexuelles et le harcèlement.",
+    rightsSearch: "Rechercher des lois (ex: 'viol', 'menaces')",
+    rightsEmpty: "Aucun droit trouvé correspondant à votre recherche.",
+    rightsSurvivorHeading: "Vos Droits en tant que Survivant",
+    rightsMythRealityTitle: "Mythe vs. Réalité Juridique",
+    rightsNeedHelp: "Besoin d'aide confidentielle ?",
+    rightsNeedHelpSub: "Was Tebeka vous permet de signaler en toute sécurité sans révéler votre identité. Vous n'avez pas à donner votre nom pour obtenir de l'aide.",
     footerRights: "&copy; 2026 Was Tebeka. Tous droits réservés."
   },
   sw: {
@@ -117,6 +144,15 @@ export const translations = {
     trustTag1: "MSAADA WA KISHERIA",
     trustTag2: "MAKAZI SALAMA",
     trustTag3: "WANGALIZI WA HAKI",
+    rightsMenu: "Jua Haki Zako",
+    rightsTitle: "Jua Haki Zako",
+    rightsSubTitle: "Mwongozo rahisi wa sheria zinazokulinda dhidi ya unyanyasaji wa nyumbani, unyanyasaji wa kijinsia, na unyanyasaji.",
+    rightsSearch: "Tafuta sheria (k.m., 'ubakaji', 'vitisho')",
+    rightsEmpty: "Hakuna haki zilizopatikana kulingana na utafutaji wako.",
+    rightsSurvivorHeading: "Haki Zako kama Manusura",
+    rightsMythRealityTitle: "Hadithi vs. Ukweli wa Kisheria",
+    rightsNeedHelp: "Unahitaji msaada wa siri?",
+    rightsNeedHelpSub: "Was Tebeka inakuruhusu kuripoti kwa usalama bila kufichua utambulisho wako. Sio lazima utoe jina lako ili kupata msaada.",
     footerRights: "&copy; 2026 Was Tebeka. Haki zote zimehifadhiwa."
   },
   ar: {
@@ -147,7 +183,15 @@ export const translations = {
     trustTag1: "عيادات قانونية",
     trustTag2: "ملاجئ الأزمات",
     trustTag3: "مراقبو حقوق الإنسان",
+    rightsMenu: "اعرف حقوقك",
+    rightsTitle: "اعرف حقوقك",
+    rightsSubTitle: "أدلة بلغة مبسطة للقوانين التي تحميك من العنف المنزلي، الاعتداء الجنسي، والتحرش.",
+    rightsSearch: "ابحث في القوانين (مثال: 'اغتصاب'، 'تهديدات')",
+    rightsEmpty: "لم يتم العثور على حقوق تطابق بحثك.",
+    rightsSurvivorHeading: "حقوقك كناجٍ",
+    rightsMythRealityTitle: "الخرافة مقابل الواقع القانوني",
+    rightsNeedHelp: "هل تحتاج إلى مساعدة سرية؟",
+    rightsNeedHelpSub: "تسمح لك منصة Was Tebeka بالإبلاغ بأمان دون الكشف عن هويتك. لست مضطراً لتقديم اسمك للحصول على المساعدة.",
     footerRights: "&copy; 2026 Was Tebeka. جميع الحقوق محفوظة."
   }
 } as Record<string, Record<string, string>>
-

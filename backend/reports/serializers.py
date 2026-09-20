@@ -27,3 +27,20 @@ class IncidentCreateSerializer(serializers.ModelSerializer):
             'country', 'region_state', 'city_district', 'approximate_location'
         ]
 
+
+class AdminTimelineEventCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimelineEvent
+        fields = ['incident', 'title', 'description']
+
+class AdminIncidentSerializer(serializers.ModelSerializer):
+    timeline = TimelineEventSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = IncidentReport
+        fields = [
+            'id', 'category', 'urgency', 'description', 
+            'country', 'region_state', 'city_district', 'approximate_location',
+            'status', 'created_at', 'updated_at', 'timeline'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', 'timeline']

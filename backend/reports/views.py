@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status, mixins
 from rest_framework.response import Response
 from .models import IncidentReport, TimelineEvent, generate_claim_token
-from .serializers import IncidentReportSerializer, IncidentCreateSerializer
+from .serializers import IncidentReportSerializer, IncidentCreateSerializer, AdminTimelineEventCreateSerializer, AdminIncidentSerializer
 from django.shortcuts import get_object_or_404
 
 class IncidentReportViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -44,3 +44,15 @@ class IncidentReportViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, 
         response_serializer = IncidentReportSerializer(incident)
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
+
+from rest_framework.permissions import IsAdminUser
+
+class AdminIncidentViewSet(viewsets.ModelViewSet):
+    queryset = IncidentReport.objects.all()
+    serializer_class = AdminIncidentSerializer
+    permission_classes = [IsAdminUser]
+
+class AdminTimelineViewSet(viewsets.ModelViewSet):
+    queryset = TimelineEvent.objects.all()
+    serializer_class = AdminTimelineEventCreateSerializer
+    permission_classes = [IsAdminUser]
