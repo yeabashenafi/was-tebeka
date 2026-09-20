@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50 flex flex-col">
-    <div class="bg-gray-900 text-white p-4 flex justify-between items-center">
+    <div class="bg-gray-900 text-white p-4 flex justify-between items-center z-10">
       <div class="flex items-center gap-2">
         <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-primary-400" />
         <span class="font-bold">Was Tebeka | Admin Dashboard</span>
@@ -27,125 +27,54 @@
       </UCard>
     </div>
 
-    <!-- Dashboard View -->
-    <div v-else class="flex-1 p-6">
-      <UCard>
-        <template #header>
-          <div class="flex justify-between items-center">
-            <h2 class="text-xl font-bold">Active Incidents</h2>
-            <UButton icon="i-heroicons-arrow-path" color="gray" variant="ghost" @click="fetchIncidents" :loading="isLoading" />
-          </div>
-        </template>
-        
-        <UTable :columns="columns" :data="incidents" @select="openIncident" class="w-full">
-          <!-- custom cell rendering if needed -->
-        </UTable>
-      </UCard>
+    <!-- Dashboard View with Nested Routes -->
+    <div v-else class="flex-1 flex overflow-hidden">
+      <!-- Sidebar Navigation -->
+      <aside class="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col">
+        <div class="p-4 font-bold text-gray-500 uppercase text-xs tracking-wider">
+          Menu
+        </div>
+        <nav class="flex-1 px-2 space-y-1">
+          <NuxtLink to="/admin" exact-active-class="bg-primary-50 text-primary-700 font-bold" class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+            <UIcon name="i-heroicons-inbox-stack" class="w-5 h-5" :class="$route.path === '/admin' ? 'text-primary-600' : 'text-gray-400'" />
+            Incidents
+          </NuxtLink>
+          <NuxtLink to="/admin/responders" active-class="bg-primary-50 text-primary-700 font-bold" class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+            <UIcon name="i-heroicons-users" class="w-5 h-5" :class="$route.path.includes('/admin/responders') ? 'text-primary-600' : 'text-gray-400'" />
+            Responders
+          </NuxtLink>
+          <NuxtLink to="/admin/analytics" active-class="bg-primary-50 text-primary-700 font-bold" class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+            <UIcon name="i-heroicons-chart-bar" class="w-5 h-5" :class="$route.path.includes('/admin/analytics') ? 'text-primary-600' : 'text-gray-400'" />
+            Analytics
+          </NuxtLink>
+          <NuxtLink to="/admin/settings" active-class="bg-primary-50 text-primary-700 font-bold" class="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+            <UIcon name="i-heroicons-cog-8-tooth" class="w-5 h-5" :class="$route.path.includes('/admin/settings') ? 'text-primary-600' : 'text-gray-400'" />
+            Settings
+          </NuxtLink>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6 overflow-y-auto bg-gray-50">
+        <NuxtPage />
+      </main>
     </div>
-
-    <!-- Incident Detail Slideover -->
-    <USlideover v-model="isSlideoverOpen" :title="`Incident Details`">
-      <template #content v-if="selectedIncident">
-        <UCard class="flex flex-col flex-1 h-full rounded-none">
-          <template #header>
-            <div class="flex items-center justify-between">
-              <h3 class="text-lg font-bold">Case Overview</h3>
-              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark" @click="isSlideoverOpen = false" />
-            </div>
-          </template>
-
-          <div class="space-y-6 overflow-y-auto">
-            <div>
-              <p class="text-sm text-gray-500 font-bold uppercase tracking-wide">Status</p>
-              <div class="flex gap-2 mt-1">
-                <USelect v-model="selectedIncident.status" :items="statusOptions" />
-                <UButton color="primary" @click="updateStatus" :loading="isUpdating">Update</UButton>
-              </div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <p class="text-sm text-gray-500 font-bold uppercase tracking-wide">Category</p>
-                <p class="font-medium">{{ selectedIncident.category }}</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 font-bold uppercase tracking-wide">Urgency</p>
-                <p class="font-medium">{{ selectedIncident.urgency }}</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 font-bold uppercase tracking-wide">Location</p>
-                <p class="font-medium">{{ selectedIncident.city_district }}, {{ selectedIncident.region_state }}</p>
-              </div>
-            </div>
-
-            <div>
-              <p class="text-sm text-gray-500 font-bold uppercase tracking-wide">Description</p>
-              <div class="bg-gray-50 p-3 rounded text-sm text-gray-800 whitespace-pre-wrap">
-                {{ selectedIncident.description }}
-              </div>
-            </div>
-
-            <UDivider />
-
-            <div>
-              <h4 class="font-bold mb-4">Append Timeline Event</h4>
-              <form @submit.prevent="addTimelineEvent" class="space-y-3">
-                <UInput v-model="newEvent.title" placeholder="Event Title (e.g., Police Dispatched)" required />
-                <UTextarea v-model="newEvent.description" placeholder="Internal notes or updates for the survivor..." :rows="2" />
-                <UButton type="submit" color="black" block :loading="isAddingEvent">Add Event & Notify</UButton>
-              </form>
-            </div>
-            
-            <div v-if="selectedIncident.timeline && selectedIncident.timeline.length" class="mt-6">
-               <h4 class="font-bold mb-2">History</h4>
-               <ul class="space-y-2">
-                 <li v-for="(t, i) in selectedIncident.timeline" :key="i" class="text-sm bg-gray-100 p-2 rounded">
-                   <strong>{{ t.title }}</strong> - {{ new Date(t.timestamp).toLocaleDateString() }}
-                 </li>
-               </ul>
-            </div>
-          </div>
-        </UCard>
-      </template>
-    </USlideover>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+const { token, loadToken, setToken, logout } = useAdminAuth()
 const config = useRuntimeConfig()
-const token = ref('')
+const route = useRoute()
+
 const credentials = ref({ username: '', password: '' })
 const isLoggingIn = ref(false)
 const loginError = ref('')
 
-const incidents = ref([])
-const isLoading = ref(false)
-
-const isSlideoverOpen = ref(false)
-const selectedIncident = ref<any>(null)
-const isUpdating = ref(false)
-const isAddingEvent = ref(false)
-const newEvent = ref({ title: '', description: '' })
-
-const columns = [
-  { accessorKey: 'id', header: 'ID' },
-  { accessorKey: 'category', header: 'Category' },
-  { accessorKey: 'urgency', header: 'Urgency' },
-  { accessorKey: 'status', header: 'Status' },
-  { accessorKey: 'city_district', header: 'Location' },
-  { accessorKey: 'created_at', header: 'Reported', cell: (info: any) => new Date(info.getValue()).toLocaleDateString() }
-]
-
-const statusOptions = ['PENDING', 'TRIAGED', 'ASSIGNED', 'ACTION_IN_PROGRESS', 'RESOLVED']
-
 onMounted(() => {
-  const saved = localStorage.getItem('admin_token')
-  if (saved) {
-    token.value = saved
-    fetchIncidents()
-  }
+  loadToken()
 })
 
 const login = async () => {
@@ -156,84 +85,11 @@ const login = async () => {
       method: 'POST',
       body: credentials.value
     })
-    token.value = res.access
-    localStorage.setItem('admin_token', res.access)
-    await fetchIncidents()
+    setToken(res.access)
   } catch (err) {
     loginError.value = 'Invalid credentials.'
   } finally {
     isLoggingIn.value = false
-  }
-}
-
-const logout = () => {
-  token.value = ''
-  localStorage.removeItem('admin_token')
-  incidents.value = []
-}
-
-const fetchIncidents = async () => {
-  isLoading.value = true
-  try {
-    const res: any = await $fetch(`${config.public.apiBase}/admin/incidents/`, {
-      headers: { Authorization: `Bearer ${token.value}` }
-    })
-    incidents.value = res
-  } catch (err) {
-    if ((err as any).response?.status === 401) logout()
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const openIncident = (row: any) => {
-  // @ts-ignore
-  selectedIncident.value = { ...row.original }
-  isSlideoverOpen.value = true
-}
-
-const updateStatus = async () => {
-  if (!selectedIncident.value) return
-  isUpdating.value = true
-  try {
-    await $fetch(`${config.public.apiBase}/admin/incidents/${selectedIncident.value.id}/`, {
-      method: 'PATCH',
-      headers: { Authorization: `Bearer ${token.value}` },
-      body: { status: selectedIncident.value.status }
-    })
-    fetchIncidents()
-  } catch (err) {
-    alert('Failed to update status')
-  } finally {
-    isUpdating.value = false
-  }
-}
-
-const addTimelineEvent = async () => {
-  if (!selectedIncident.value) return
-  isAddingEvent.value = true
-  try {
-    await $fetch(`${config.public.apiBase}/admin/timeline/`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token.value}` },
-      body: {
-        incident: selectedIncident.value.id,
-        title: newEvent.value.title,
-        description: newEvent.value.description
-      }
-    })
-    newEvent.value = { title: '', description: '' }
-    
-    // Refresh the specific incident to get the new timeline event
-    const updated: any = await $fetch(`${config.public.apiBase}/admin/incidents/${selectedIncident.value.id}/`, {
-      headers: { Authorization: `Bearer ${token.value}` }
-    })
-    selectedIncident.value = updated
-    fetchIncidents()
-  } catch (err) {
-    alert('Failed to add event')
-  } finally {
-    isAddingEvent.value = false
   }
 }
 </script>
