@@ -35,32 +35,52 @@
             </span>
           </div>
           
-          <ul class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
+          <ul class="space-y-6 flex flex-col">
             <li 
               v-for="(event, index) in trackedCase.timeline" 
               :key="index"
-              class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+              class="flex w-full"
+              :class="index === 0 ? 'justify-end' : 'justify-start'"
             >
-              <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-green-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                <UIcon name="i-heroicons-check" class="w-5 h-5" />
-              </div>
-              <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-gray-200 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                  <h4 class="font-bold text-gray-900 text-sm">{{ event.title }}</h4>
-                  <time class="text-xs text-gray-500">{{ new Date(event.timestamp).toLocaleDateString() }} {{ new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</time>
+              <!-- System message (Left) -->
+              <div v-if="index > 0" class="flex gap-3 max-w-[90%] md:max-w-[75%]">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white mt-1 shadow-sm">
+                  <UIcon name="i-heroicons-shield-check" class="w-5 h-5" />
                 </div>
-                <p v-if="event.description" class="text-sm text-gray-600 mt-2">{{ event.description }}</p>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-sm border border-gray-200 shadow-sm">
+                  <div class="flex items-center justify-between mb-1 gap-4">
+                    <h4 class="font-bold text-gray-900 text-sm">{{ event.title }}</h4>
+                    <time class="text-xs text-gray-400 whitespace-nowrap">{{ new Date(event.timestamp).toLocaleDateString() }} {{ new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</time>
+                  </div>
+                  <p v-if="event.description" class="text-sm text-gray-600 mt-1">{{ event.description }}</p>
+                </div>
+              </div>
+
+              <!-- User message (Right) -->
+              <div v-if="index === 0" class="flex gap-3 max-w-[90%] md:max-w-[75%] flex-row-reverse">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-white mt-1 shadow-sm">
+                  <UIcon name="i-heroicons-user" class="w-5 h-5" />
+                </div>
+                <div class="bg-gray-800 text-white p-4 rounded-2xl rounded-tr-sm shadow-sm">
+                  <div class="flex items-center justify-between mb-1 gap-4">
+                    <h4 class="font-bold text-gray-100 text-sm">{{ event.title }}</h4>
+                    <time class="text-xs text-gray-400 whitespace-nowrap">{{ new Date(event.timestamp).toLocaleDateString() }} {{ new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</time>
+                  </div>
+                  <p v-if="event.description" class="text-sm text-gray-300 mt-1">{{ event.description }}</p>
+                </div>
               </div>
             </li>
             
-            <li class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" v-if="trackedCase.status !== 'RESOLVED'">
-              <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-gray-200 text-gray-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                <UIcon name="i-heroicons-ellipsis-horizontal" class="w-5 h-5" />
-              </div>
-              <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/50 p-4 rounded border border-gray-200 border-dashed">
-                <div class="flex items-center justify-between mb-1">
-                  <h4 class="font-bold text-gray-500 text-sm">Next Steps Pending</h4>
-                  <time class="text-xs text-gray-400">Awaiting Action</time>
+            <li class="flex w-full justify-start" v-if="trackedCase.status !== 'RESOLVED'">
+              <div class="flex gap-3 max-w-[90%] md:max-w-[75%]">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 mt-1">
+                  <UIcon name="i-heroicons-ellipsis-horizontal" class="w-5 h-5" />
+                </div>
+                <div class="bg-white/50 p-4 rounded-2xl rounded-tl-sm border border-gray-200 border-dashed">
+                  <div class="flex items-center justify-between mb-1 gap-4">
+                    <h4 class="font-bold text-gray-500 text-sm">Next Steps Pending</h4>
+                    <time class="text-xs text-gray-400">Awaiting Action</time>
+                  </div>
                 </div>
               </div>
             </li>
