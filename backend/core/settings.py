@@ -139,6 +139,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # Change to IsAuthenticated for production
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         # Removed SessionAuthentication to allow stateless API POST requests without CSRF token
     ],
 }
@@ -150,3 +151,9 @@ CORS_ALLOW_ALL_ORIGINS = True # Change this in production
 trusted_origins = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
 if trusted_origins:
     CSRF_TRUSTED_ORIGINS = trusted_origins.split(',')
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
