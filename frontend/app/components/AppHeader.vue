@@ -18,6 +18,10 @@
         <UIcon name="i-heroicons-book-open" class="w-4 h-4" />
         Know Your Rights
       </NuxtLink>
+      <NuxtLink to="/contacts" class="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-primary-600 transition-colors">
+        <UIcon name="i-heroicons-phone" class="w-4 h-4" />
+        {{ t?.contacts?.menu || 'Contacts' }}
+      </NuxtLink>
     </div>
     <div class="flex items-center gap-2 md:gap-4">
       <USelect
@@ -73,6 +77,10 @@
             <NuxtLink to="/rights" class="flex items-center gap-3 text-lg text-gray-700 font-medium hover:text-primary-600" @click="isMobileMenuOpen = false">
               <UIcon name="i-heroicons-book-open" class="w-6 h-6" />
               Know Your Rights
+            </NuxtLink>
+            <NuxtLink to="/contacts" class="flex items-center gap-3 text-lg text-gray-700 font-medium hover:text-primary-600" @click="isMobileMenuOpen = false">
+              <UIcon name="i-heroicons-phone" class="w-6 h-6" />
+              {{ t?.contacts?.menu || 'Contacts' }}
             </NuxtLink>
           </nav>
 
