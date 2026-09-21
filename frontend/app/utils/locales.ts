@@ -1,6 +1,6 @@
 export const translations = {
   en: {
-    appTitle: "Was Tebeka",
+    appTitle: "Was Tebeka | ዋስ ጠበቃ",
     quickExit: "Quick Exit",
     dangerCall: "Immediate Danger? Call <span class='font-bold'>991</span> (Police) or <span class='font-bold'>8809</span> (SGBV Hotline).",
     medCare: "Medical Care / PEP (72h)",
@@ -32,6 +32,8 @@ export const translations = {
     rightsSubTitle: "Plain-language guides to laws protecting you against domestic abuse, sexual violence, and harassment.",
     rightsSearch: "Search laws (e.g., 'rape', 'threats')",
     rightsEmpty: "No rights found matching your search.",
+    readAloud: "Read Aloud",
+    stopReading: "Stop",
     contacts: {
       menu: "Contacts",
       title: "Emergency Contacts & Partners",
@@ -127,6 +129,8 @@ export const translations = {
     rightsSubTitle: "ስለ ቤተሰብ ውስጥ ጥቃት፣ ወሲባዊ ጥቃት እና ትንኮሳ የሚጠብቁዎትን ህጎች በቀላል ቋንቋ የሚያብራራ መመሪያ።",
     rightsSearch: "ህጎችን ይፈልጉ (ለምሳሌ 'አስገድዶ መድፈር', 'ማስፈራሪያ')",
     rightsEmpty: "ለፍለጋዎ የሚዛመድ ምንም መብት አልተገኘም።",
+    readAloud: "አንብብልኝ",
+    stopReading: "አቁም",
     contacts: {
       menu: "አድራሻዎች",
       title: "የአደጋ ጊዜ አድራሻዎች እና አጋሮች",
@@ -190,7 +194,7 @@ export const translations = {
     }
   },
   fr: {
-    appTitle: "Was Tebeka | Protection",
+    appTitle: "Was Tebeka | ዋስ ጠበቃ",
     quickExit: "Sortie Rapide",
     dangerCall: "Danger immédiat ? Appelez le <span class='font-bold'>991</span> (Police) ou le <span class='font-bold'>8809</span> (Assistance).",
     medCare: "Soins Médicaux / PEP",
@@ -222,6 +226,8 @@ export const translations = {
     rightsSubTitle: "Guides en langage clair sur les lois vous protégeant contre la violence domestique, les agressions sexuelles et le harcèlement.",
     rightsSearch: "Rechercher des lois (ex: 'viol', 'menaces')",
     rightsEmpty: "Aucun droit trouvé correspondant à votre recherche.",
+    readAloud: "Lire à voix haute",
+    stopReading: "Arrêter",
     contacts: {
       menu: "Contacts",
       title: "Contacts d'Urgence et Partenaires",
@@ -233,7 +239,7 @@ export const translations = {
     rightsMythRealityTitle: "Mythe vs. Réalité Juridique",
     rightsNeedHelp: "Besoin d'aide confidentielle ?",
     rightsNeedHelpSub: "Was Tebeka vous permet de signaler en toute sécurité sans révéler votre identité. Vous n'avez pas à donner votre nom pour obtenir de l'aide.",
-    footerRights: "&copy; 2026 Was Tebeka. Tous droits réservés.",
+    footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). Tous droits réservés.",
     status: {
       PENDING: "EN ATTENTE",
       TRIAGED: "TRIÉ",
@@ -285,7 +291,7 @@ export const translations = {
     }
   },
   sw: {
-    appTitle: "Was Tebeka | Ulinzi",
+    appTitle: "Was Tebeka | ዋስ ጠበቃ",
     quickExit: "Toka Haraka",
     dangerCall: "Hatari ya Mara Moja? Piga <span class='font-bold'>991</span> (Polisi) au <span class='font-bold'>8809</span> (Dharura).",
     medCare: "Matibabu / PEP",
@@ -317,6 +323,8 @@ export const translations = {
     rightsSubTitle: "Mwongozo rahisi wa sheria zinazokulinda dhidi ya unyanyasaji wa nyumbani, unyanyasaji wa kijinsia, na unyanyasaji.",
     rightsSearch: "Tafuta sheria (k.m., 'ubakaji', 'vitisho')",
     rightsEmpty: "Hakuna haki zilizopatikana kulingana na utafutaji wako.",
+    readAloud: "Soma kwa Sauti",
+    stopReading: "Simamisha",
     contacts: {
       menu: "Mawasiliano",
       title: "Mawasiliano ya Dharura na Washirika",
@@ -328,7 +336,7 @@ export const translations = {
     rightsMythRealityTitle: "Hadithi vs. Ukweli wa Kisheria",
     rightsNeedHelp: "Unahitaji msaada wa siri?",
     rightsNeedHelpSub: "Was Tebeka inakuruhusu kuripoti kwa usalama bila kufichua utambulisho wako. Sio lazima utoe jina lako ili kupata msaada.",
-    footerRights: "&copy; 2026 Was Tebeka. Haki zote zimehifadhiwa.",
+    footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). Haki zote zimehifadhiwa.",
     status: {
       PENDING: "INASUBIRI",
       TRIAGED: "IMEPANGWA",
@@ -380,7 +388,7 @@ export const translations = {
     }
   },
   ar: {
-    appTitle: "Was Tebeka | حماية",
+    appTitle: "Was Tebeka | ዋስ ጠበቃ",
     quickExit: "خروج سريع",
     dangerCall: "خطر فوري؟ اتصل بـ <span class='font-bold'>991</span> (الشرطة) أو <span class='font-bold'>8809</span> (خط المساعدة).",
     medCare: "رعاية طبية / PEP",
@@ -412,6 +420,8 @@ export const translations = {
     rightsSubTitle: "أدلة بلغة مبسطة للقوانين التي تحميك من العنف المنزلي، الاعتداء الجنسي، والتحرش.",
     rightsSearch: "ابحث في القوانين (مثال: 'اغتصاب'، 'تهديدات')",
     rightsEmpty: "لم يتم العثور على حقوق تطابق بحثك.",
+    readAloud: "اقرأ بصوت عالٍ",
+    stopReading: "إيقاف",
     contacts: {
       menu: "جهات الاتصال",
       title: "جهات اتصال الطوارئ والشركاء",
@@ -423,7 +433,7 @@ export const translations = {
     rightsMythRealityTitle: "الخرافة مقابل الواقع القانوني",
     rightsNeedHelp: "هل تحتاج إلى مساعدة سرية؟",
     rightsNeedHelpSub: "تسمح لك منصة Was Tebeka بالإبلاغ بأمان دون الكشف عن هويتك. لست مضطراً لتقديم اسمك للحصول على المساعدة.",
-    footerRights: "&copy; 2026 Was Tebeka. جميع الحقوق محفوظة.",
+    footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). جميع الحقوق محفوظة.",
     status: {
       PENDING: "قيد الانتظار",
       TRIAGED: "تم الفرز",
