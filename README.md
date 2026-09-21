@@ -1,4 +1,3 @@
-
 # Was Tebeka (ዋስ ጠበቃ)
 
 > **OSF × Andela Hackathon 2026** | **Track:** Safety, Reporting & Protection
@@ -93,6 +92,30 @@ If you prefer to run the backend natively without Docker:
 1. `cd frontend`
 2. `npm install`
 3. `npm run dev`
+
+
+### Admin & Triage Portals
+
+The platform includes two administrative interfaces:
+
+1. **Caseworker Triage Dashboard (Frontend):**
+
+   - **URL:** Accessed via `/admin` (e.g., `http://localhost:3000/admin` or `https://was-tebeka.vercel.app/admin`)
+   - **Purpose:** Used by accredited partner organizations (EWLA, health centers, shelters) to review incoming reports, update incident statuses, assign caseworkers, and post verified timeline updates.
+   - *Note: In development/demo mode , use the provided demo credentials*
+   - - **Demo Credentials:**
+       - **Username:** `admin`
+       - **Password:** admin123@wastebeka
+2. **Django Superuser Portal (Backend):**
+
+   - **URL:** `http://localhost:8000/admin`
+   - To create an administrative superuser:
+     ```bash
+     docker compose exec backend python manage.py createsuperuser
+     ```
+
+     *(Or run `python manage.py createsuperuser` if running natively).*
+   - Note: the credentials created with the above command will the ones used to login to the frontend triage dashboard locally
 
 ## 🔒 Security & Privacy Architecture
 
