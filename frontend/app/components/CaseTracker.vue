@@ -31,7 +31,7 @@
           <div class="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
             <span class="font-mono font-bold text-gray-700">{{ searchToken.toUpperCase() }}</span>
             <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full uppercase tracking-wide">
-              {{ trackedCase.status.replace(/_/g, ' ') }}
+              {{ t.status[trackedCase.status] || trackedCase.status.replace(/_/g, ' ') }}
             </span>
           </div>
           
@@ -49,10 +49,10 @@
                 </div>
                 <div class="bg-white p-4 rounded-2xl rounded-tl-sm border border-gray-200 shadow-sm">
                   <div class="flex items-center justify-between mb-1 gap-4">
-                    <h4 class="font-bold text-gray-900 text-sm">{{ event.title }}</h4>
+                    <h4 class="font-bold text-gray-900 text-sm">{{ formatTitle(event.title) }}</h4>
                     <time class="text-xs text-gray-400 whitespace-nowrap">{{ new Date(event.timestamp).toLocaleDateString() }} {{ new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</time>
                   </div>
-                  <p v-if="event.description" class="text-sm text-gray-600 mt-1">{{ event.description }}</p>
+                  <p v-if="event.description" class="text-sm text-gray-600 mt-1 whitespace-pre-wrap">{{ formatDesc(event.description) }}</p>
                 </div>
               </div>
 
@@ -63,10 +63,10 @@
                 </div>
                 <div class="bg-gray-800 text-white p-4 rounded-2xl rounded-tr-sm shadow-sm">
                   <div class="flex items-center justify-between mb-1 gap-4">
-                    <h4 class="font-bold text-gray-100 text-sm">{{ event.title }}</h4>
+                    <h4 class="font-bold text-gray-100 text-sm">{{ formatTitle(event.title) }}</h4>
                     <time class="text-xs text-gray-400 whitespace-nowrap">{{ new Date(event.timestamp).toLocaleDateString() }} {{ new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</time>
                   </div>
-                  <p v-if="event.description" class="text-sm text-gray-300 mt-1">{{ event.description }}</p>
+                  <p v-if="event.description" class="text-sm text-gray-300 mt-1 whitespace-pre-wrap">{{ formatDesc(event.description) }}</p>
                 </div>
               </div>
             </li>
@@ -78,8 +78,8 @@
                 </div>
                 <div class="bg-white/50 p-4 rounded-2xl rounded-tl-sm border border-gray-200 border-dashed">
                   <div class="flex items-center justify-between mb-1 gap-4">
-                    <h4 class="font-bold text-gray-500 text-sm">Next Steps Pending</h4>
-                    <time class="text-xs text-gray-400">Awaiting Action</time>
+                    <h4 class="font-bold text-gray-500 text-sm">{{ t.timeline.nextSteps }}</h4>
+                    <time class="text-xs text-gray-400">{{ t.timeline.awaitingAction }}</time>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,41 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+
 const { t } = useLocales()
+
+const formatTitle = (title: string) => {
+  if (title === 'Case Received & Hash Verified') return t.value.timeline.caseReceivedTitle
+  if (title.startsWith('Referred to ')) {
+    const org = title.replace('Referred to ', '')
+    return t.value.timeline.referredTo.replace('{org}', org)
+  }
+  return title
+}
+
+const formatDesc = (desc: string) => {
+  if (!desc) return ''
+  if (desc === 'Your report has been securely received. This timeline will update as action is taken.') {
+    return t.value.timeline.caseReceivedDesc
+  }
+  if (desc.startsWith('Case automatically referred to partner organization:')) {
+    const parts = desc.split('.\n\n')
+    let base = parts[0].replace('Case automatically referred to partner organization: ', '')
+    let translatedBase = t.value.timeline.referredToDesc.replace('{org}', base.trim())
+    
+    if (parts.length > 1) {
+       const details = parts[1].split('\n')
+       let jurisdiction = details[0].replace('Jurisdiction: ', '')
+       let contact = details[1].replace('Contact Info: ', '')
+       
+       translatedBase += '\n\n' + t.value.timeline.jurisdiction.replace('{text}', jurisdiction.trim())
+       translatedBase += '\n' + t.value.timeline.contact.replace('{text}', contact.trim())
+    }
+    return translatedBase
+  }
+  return desc
+}
+
 const config = useRuntimeConfig()
 
 const searchToken = ref('')

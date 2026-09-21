@@ -1,7 +1,7 @@
 export const translations = {
   en: {
-    appTitle: "Was Tebeka | ዋስ ጠበቃ",
-    quickExit: "Quick Exit / ደህንነት ውጣ",
+    appTitle: "Was Tebeka",
+    quickExit: "Quick Exit",
     dangerCall: "Immediate Danger? Call <span class='font-bold'>991</span> (Police) or <span class='font-bold'>8809</span> (SGBV Hotline).",
     medCare: "Medical Care / PEP (72h)",
     safeShelter: "Safe Shelter Dispatch",
@@ -32,11 +32,67 @@ export const translations = {
     rightsSubTitle: "Plain-language guides to laws protecting you against domestic abuse, sexual violence, and harassment.",
     rightsSearch: "Search laws (e.g., 'rape', 'threats')",
     rightsEmpty: "No rights found matching your search.",
+    contacts: {
+      menu: "Contacts",
+      title: "Emergency Contacts & Partners",
+      subtitle: "Get immediate help, legal advice, or medical support from our trusted partners before submitting a report.",
+      btnCall: "Call Now",
+      empty: "No partner organizations available at this time."
+    },
     rightsSurvivorHeading: "Your Rights as a Survivor",
     rightsMythRealityTitle: "Myth vs. Legal Reality",
     rightsNeedHelp: "Need confidential help?",
     rightsNeedHelpSub: "Was Tebeka allows you to report safely without revealing your identity. You do not have to give your name to get help.",
-    footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). All rights reserved."
+    footerRights: "&copy; 2026 Was Tebeka (ዋስ ጠበቃ). All rights reserved.",
+    status: {
+      PENDING: "PENDING",
+      TRIAGED: "TRIAGED",
+      ASSIGNED: "ASSIGNED",
+      ACTION_IN_PROGRESS: "IN PROGRESS",
+      RESOLVED: "RESOLVED",
+      REFERRED_TO_PARTNER: "REFERRED TO PARTNER"
+    },
+    timeline: {
+      nextSteps: "Next Steps Pending",
+      awaitingAction: "Awaiting Action",
+      caseReceivedTitle: "Case Received & Hash Verified",
+      caseReceivedDesc: "Your report has been securely received. This timeline will update as action is taken.",
+      referredTo: "Referred to {org}",
+      referredToDesc: "Case automatically referred to partner organization: {org}.",
+      jurisdiction: "Jurisdiction: {text}",
+      contact: "Contact Info: {text}"
+    },
+    reportModal: {
+      title: "Secure Incident Report",
+      category: "Incident Category",
+      urgency: "Urgency Level",
+      desc: "Description",
+      descHelp: "Do not include your real name or contact details.",
+      descPlaceholder: "Describe what happened...",
+      region: "Region / State",
+      regionPlaceholder: "e.g. Addis Ababa",
+      city: "City / District",
+      cityPlaceholder: "e.g. Bole",
+      btnCancel: "Cancel",
+      btnSubmit: "Submit Securely",
+      successTitle: "Report Submitted Successfully",
+      successDesc: "Please save this claim token. It will only be shown once and is required to track your case.",
+      btnSaved: "I Have Saved My Token",
+      categories: {
+        sexual: "Sexual Violence & Rape",
+        domestic: "Domestic / Intimate Partner Violence",
+        physical: "Physical Assault & Battery",
+        harassment: "Harassment & Stalking",
+        child: "Harmful Practices & Child Exploitation",
+        other: "Other Unspecified Abuse"
+      },
+      urgencies: {
+        low: "Low",
+        medium: "Standard",
+        high: "High Priority",
+        critical: "Immediate Threat / Medical Emergency"
+      }
+    }
   },
   am: {
     appTitle: "ዋስ ጠበቃ | Was Tebeka",
@@ -71,11 +127,67 @@ export const translations = {
     rightsSubTitle: "ስለ ቤተሰብ ውስጥ ጥቃት፣ ወሲባዊ ጥቃት እና ትንኮሳ የሚጠብቁዎትን ህጎች በቀላል ቋንቋ የሚያብራራ መመሪያ።",
     rightsSearch: "ህጎችን ይፈልጉ (ለምሳሌ 'አስገድዶ መድፈር', 'ማስፈራሪያ')",
     rightsEmpty: "ለፍለጋዎ የሚዛመድ ምንም መብት አልተገኘም።",
+    contacts: {
+      menu: "አድራሻዎች",
+      title: "የአደጋ ጊዜ አድራሻዎች እና አጋሮች",
+      subtitle: "ሪፖርት ከማቅረብዎ በፊት ከታመኑ አጋሮቻችን ፈጣን እርዳታ፣ የህግ ምክር ወይም የህክምና ድጋፍ ያግኙ።",
+      btnCall: "አሁን ይደውሉ",
+      empty: "በአሁኑ ጊዜ ምንም አጋር ድርጅቶች የሉም።"
+    },
     rightsSurvivorHeading: "የጥቃት ሰለባ መብቶችዎ",
     rightsMythRealityTitle: "አፈታሪክ እና ህጋዊ እውነታ",
     rightsNeedHelp: "ሚስጥራዊ እርዳታ ይፈልጋሉ?",
     rightsNeedHelpSub: "ዋስ ጠበቃ ማንነትዎን ሳያሳውቁ ደህንነቱ በተጠበቀ ሁኔታ ሪፖርት እንዲያደርጉ ያስችልዎታል። እርዳታ ለማግኘት ስምዎን መስጠት አይጠበቅብዎትም።",
-    footerRights: "&copy; 2026 ዋስ ጠበቃ (Was Tebeka)። መብቱ በህግ የተጠበቀ ነው።"
+    footerRights: "&copy; 2026 ዋስ ጠበቃ (Was Tebeka)። መብቱ በህግ የተጠበቀ ነው።",
+    status: {
+      PENDING: "በመጠባበቅ ላይ",
+      TRIAGED: "ተለይቷል",
+      ASSIGNED: "ተመድቧል",
+      ACTION_IN_PROGRESS: "በሂደት ላይ",
+      RESOLVED: "እልባት አግኝቷል",
+      REFERRED_TO_PARTNER: "ለአጋር ድርጅት ተመርቷል"
+    },
+    timeline: {
+      nextSteps: "ቀጣይ እርምጃዎች በመጠባበቅ ላይ",
+      awaitingAction: "እርምጃ በመጠባበቅ ላይ",
+      caseReceivedTitle: "ጉዳዩ ደርሷል እና ተረጋግጧል",
+      caseReceivedDesc: "ሪፖርትዎ በሚስጥር ተቀብለናል። እርምጃ ሲወሰድ ይህ ማውጫ ይዘመናል።",
+      referredTo: "ወደ {org} ተመርቷል",
+      referredToDesc: "ጉዳዩ በቀጥታ ወደ አጋር ድርጅት ተመርቷል፡ {org}።",
+      jurisdiction: "የስልጣን ክልል፡ {text}",
+      contact: "የመገናኛ መረጃ፡ {text}"
+    },
+    reportModal: {
+      title: "ደህንነቱ የተጠበቀ የጥቃት ሪፖርት",
+      category: "የጥቃቱ አይነት",
+      urgency: "የአጣዳፊነት ደረጃ",
+      desc: "ማብራሪያ",
+      descHelp: "እውነተኛ ስምዎን ወይም የመገኛ አድራሻዎን አያካትቱ።",
+      descPlaceholder: "ምን እንደተፈጠረ ያብራሩ...",
+      region: "ክልል",
+      regionPlaceholder: "ለምሳሌ አዲስ አበባ",
+      city: "ከተማ / ክፍለ ከተማ",
+      cityPlaceholder: "ለምሳሌ ቦሌ",
+      btnCancel: "ሰርዝ",
+      btnSubmit: "በሚስጥር ላክ",
+      successTitle: "ሪፖርቱ በተሳካ ሁኔታ ተልኳል",
+      successDesc: "እባክዎን ይህን የይገባኛል ጥያቄ ቶከን ያስቀምጡ። አንድ ጊዜ ብቻ የሚታይ ሲሆን ጉዳይዎን ለመከታተል ያስፈልጋል።",
+      btnSaved: "ቶከኑን አስቀምጫለሁ",
+      categories: {
+        sexual: "ወሲባዊ ጥቃት እና አስገድዶ መድፈር",
+        domestic: "የቤተሰብ / የትዳር አጋር ጥቃት",
+        physical: "አካላዊ ጥቃት እና ድብደባ",
+        harassment: "ትንኮሳ እና ማሳደድ",
+        child: "ጎጂ ልማዳዊ ድርጊቶች እና የህጻናት ብዝበዛ",
+        other: "ሌሎች ያልተገለጹ ጥቃቶች"
+      },
+      urgencies: {
+        low: "አነስተኛ",
+        medium: "መደበኛ",
+        high: "ከፍተኛ ቅድሚያ የሚሰጠው",
+        critical: "አፋጣኝ አደጋ / የህክምና ድንገተኛ አደጋ"
+      }
+    }
   },
   fr: {
     appTitle: "Was Tebeka | Protection",
@@ -110,11 +222,67 @@ export const translations = {
     rightsSubTitle: "Guides en langage clair sur les lois vous protégeant contre la violence domestique, les agressions sexuelles et le harcèlement.",
     rightsSearch: "Rechercher des lois (ex: 'viol', 'menaces')",
     rightsEmpty: "Aucun droit trouvé correspondant à votre recherche.",
+    contacts: {
+      menu: "Contacts",
+      title: "Contacts d'Urgence et Partenaires",
+      subtitle: "Obtenez une aide immédiate, des conseils juridiques ou un soutien médical de nos partenaires de confiance avant de soumettre un rapport.",
+      btnCall: "Appeler",
+      empty: "Aucune organisation partenaire disponible pour le moment."
+    },
     rightsSurvivorHeading: "Vos Droits en tant que Survivant",
     rightsMythRealityTitle: "Mythe vs. Réalité Juridique",
     rightsNeedHelp: "Besoin d'aide confidentielle ?",
     rightsNeedHelpSub: "Was Tebeka vous permet de signaler en toute sécurité sans révéler votre identité. Vous n'avez pas à donner votre nom pour obtenir de l'aide.",
-    footerRights: "&copy; 2026 Was Tebeka. Tous droits réservés."
+    footerRights: "&copy; 2026 Was Tebeka. Tous droits réservés.",
+    status: {
+      PENDING: "EN ATTENTE",
+      TRIAGED: "TRIÉ",
+      ASSIGNED: "ATTRIBUÉ",
+      ACTION_IN_PROGRESS: "EN COURS",
+      RESOLVED: "RÉSOLU",
+      REFERRED_TO_PARTNER: "TRANSFÉRÉ AU PARTENAIRE"
+    },
+    timeline: {
+      nextSteps: "Prochaines Étapes en Attente",
+      awaitingAction: "En Attente d'Action",
+      caseReceivedTitle: "Dossier Reçu et Vérifié",
+      caseReceivedDesc: "Votre rapport a été reçu en toute sécurité. Ce journal sera mis à jour au fur et à mesure.",
+      referredTo: "Transféré à {org}",
+      referredToDesc: "Dossier automatiquement transféré à l'organisation partenaire : {org}.",
+      jurisdiction: "Juridiction : {text}",
+      contact: "Contact : {text}"
+    },
+    reportModal: {
+      title: "Rapport d'Incident Sécurisé",
+      category: "Catégorie d'Incident",
+      urgency: "Niveau d'Urgence",
+      desc: "Description",
+      descHelp: "N'incluez pas votre vrai nom ou vos coordonnées.",
+      descPlaceholder: "Décrivez ce qui s'est passé...",
+      region: "Région / État",
+      regionPlaceholder: "ex. Addis Abeba",
+      city: "Ville / District",
+      cityPlaceholder: "ex. Bole",
+      btnCancel: "Annuler",
+      btnSubmit: "Soumettre en Toute Sécurité",
+      successTitle: "Rapport Soumis avec Succès",
+      successDesc: "Veuillez conserver ce jeton. Il ne sera affiché qu'une seule fois et est requis pour suivre votre dossier.",
+      btnSaved: "J'ai Enregistré Mon Jeton",
+      categories: {
+        sexual: "Violence Sexuelle et Viol",
+        domestic: "Violence Domestique / Partenaire Intime",
+        physical: "Agression Physique et Coups",
+        harassment: "Harcèlement et Traque",
+        child: "Pratiques Nocives et Exploitation d'Enfants",
+        other: "Autre Abus Non Spécifié"
+      },
+      urgencies: {
+        low: "Faible",
+        medium: "Standard",
+        high: "Priorité Élevée",
+        critical: "Menace Immédiate / Urgence Médicale"
+      }
+    }
   },
   sw: {
     appTitle: "Was Tebeka | Ulinzi",
@@ -149,11 +317,67 @@ export const translations = {
     rightsSubTitle: "Mwongozo rahisi wa sheria zinazokulinda dhidi ya unyanyasaji wa nyumbani, unyanyasaji wa kijinsia, na unyanyasaji.",
     rightsSearch: "Tafuta sheria (k.m., 'ubakaji', 'vitisho')",
     rightsEmpty: "Hakuna haki zilizopatikana kulingana na utafutaji wako.",
+    contacts: {
+      menu: "Mawasiliano",
+      title: "Mawasiliano ya Dharura na Washirika",
+      subtitle: "Pata msaada wa haraka, ushauri wa kisheria, au msaada wa matibabu kutoka kwa washirika wetu wanaoaminika kabla ya kuwasilisha ripoti.",
+      btnCall: "Piga Sasa",
+      empty: "Hakuna mashirika washirika yanayopatikana kwa wakati huu."
+    },
     rightsSurvivorHeading: "Haki Zako kama Manusura",
     rightsMythRealityTitle: "Hadithi vs. Ukweli wa Kisheria",
     rightsNeedHelp: "Unahitaji msaada wa siri?",
     rightsNeedHelpSub: "Was Tebeka inakuruhusu kuripoti kwa usalama bila kufichua utambulisho wako. Sio lazima utoe jina lako ili kupata msaada.",
-    footerRights: "&copy; 2026 Was Tebeka. Haki zote zimehifadhiwa."
+    footerRights: "&copy; 2026 Was Tebeka. Haki zote zimehifadhiwa.",
+    status: {
+      PENDING: "INASUBIRI",
+      TRIAGED: "IMEPANGWA",
+      ASSIGNED: "IMETOLEWA",
+      ACTION_IN_PROGRESS: "INAENDELEA",
+      RESOLVED: "IMETATULIWA",
+      REFERRED_TO_PARTNER: "IMETUMWA KWA MWENZI"
+    },
+    timeline: {
+      nextSteps: "Hatua Zinazofuata Zinasubiri",
+      awaitingAction: "Inasubiri Hatua",
+      caseReceivedTitle: "Kesi Imepokelewa na Kuthibitishwa",
+      caseReceivedDesc: "Ripoti yako imepokelewa kwa usalama. Ratiba hii itasasishwa hatua zitakapochukuliwa.",
+      referredTo: "Imetumwa kwa {org}",
+      referredToDesc: "Kesi imetumwa moja kwa moja kwa shirika shiriki: {org}.",
+      jurisdiction: "Mamlaka: {text}",
+      contact: "Maelezo ya Mawasiliano: {text}"
+    },
+    reportModal: {
+      title: "Ripoti ya Tukio Salama",
+      category: "Aina ya Tukio",
+      urgency: "Kiwango cha Umuhimu",
+      desc: "Maelezo",
+      descHelp: "Usiweke jina lako halisi au maelezo ya mawasiliano.",
+      descPlaceholder: "Eleza kilichotokea...",
+      region: "Mkoa / Jimbo",
+      regionPlaceholder: "mf. Addis Ababa",
+      city: "Mji / Wilaya",
+      cityPlaceholder: "mf. Bole",
+      btnCancel: "Ghairi",
+      btnSubmit: "Wasilisha Kwa Usalama",
+      successTitle: "Ripoti Imewasilishwa Kikamilifu",
+      successDesc: "Tafadhali hifadhi ishara hii ya madai. Itaonyeshwa mara moja tu na inahitajika kufuatilia kesi yako.",
+      btnSaved: "Nimehifadhi Ishara Yangu",
+      categories: {
+        sexual: "Unyanyasaji wa Kijinsia na Ubakaji",
+        domestic: "Unyanyasaji wa Nyumbani / Mpenzi",
+        physical: "Shambulio la Kimwili na Kupigwa",
+        harassment: "Unyanyasaji na Ufuatiliaji",
+        child: "Mila Madhara na Unyonyaji wa Watoto",
+        other: "Unyanyasaji Mwingine Usiojulikana"
+      },
+      urgencies: {
+        low: "Chini",
+        medium: "Kawaida",
+        high: "Kipaumbele cha Juu",
+        critical: "Tishio la Haraka / Dharura ya Matibabu"
+      }
+    }
   },
   ar: {
     appTitle: "Was Tebeka | حماية",
@@ -188,10 +412,66 @@ export const translations = {
     rightsSubTitle: "أدلة بلغة مبسطة للقوانين التي تحميك من العنف المنزلي، الاعتداء الجنسي، والتحرش.",
     rightsSearch: "ابحث في القوانين (مثال: 'اغتصاب'، 'تهديدات')",
     rightsEmpty: "لم يتم العثور على حقوق تطابق بحثك.",
+    contacts: {
+      menu: "جهات الاتصال",
+      title: "جهات اتصال الطوارئ والشركاء",
+      subtitle: "احصل على مساعدة فورية أو مشورة قانونية أو دعم طبي من شركائنا الموثوق بهم قبل تقديم تقرير.",
+      btnCall: "اتصل الان",
+      empty: "لا توجد منظمات شريكة متاحة في هذا الوقت."
+    },
     rightsSurvivorHeading: "حقوقك كناجٍ",
     rightsMythRealityTitle: "الخرافة مقابل الواقع القانوني",
     rightsNeedHelp: "هل تحتاج إلى مساعدة سرية؟",
     rightsNeedHelpSub: "تسمح لك منصة Was Tebeka بالإبلاغ بأمان دون الكشف عن هويتك. لست مضطراً لتقديم اسمك للحصول على المساعدة.",
-    footerRights: "&copy; 2026 Was Tebeka. جميع الحقوق محفوظة."
+    footerRights: "&copy; 2026 Was Tebeka. جميع الحقوق محفوظة.",
+    status: {
+      PENDING: "قيد الانتظار",
+      TRIAGED: "تم الفرز",
+      ASSIGNED: "معين",
+      ACTION_IN_PROGRESS: "قيد التنفيذ",
+      RESOLVED: "تم الحل",
+      REFERRED_TO_PARTNER: "تم التحويل إلى شريك"
+    },
+    timeline: {
+      nextSteps: "الخطوات التالية قيد الانتظار",
+      awaitingAction: "في انتظار اتخاذ إجراء",
+      caseReceivedTitle: "تم استلام الحالة والتحقق منها",
+      caseReceivedDesc: "تم استلام تقريرك بأمان. سيتم تحديث هذا السجل عند اتخاذ إجراء.",
+      referredTo: "تم التحويل إلى {org}",
+      referredToDesc: "تم تحويل الحالة تلقائيًا إلى المنظمة الشريكة: {org}.",
+      jurisdiction: "الاختصاص: {text}",
+      contact: "معلومات الاتصال: {text}"
+    },
+    reportModal: {
+      title: "تقرير حادث آمن",
+      category: "فئة الحادث",
+      urgency: "مستوى الإلحاح",
+      desc: "الوصف",
+      descHelp: "لا تقم بتضمين اسمك الحقيقي أو تفاصيل الاتصال بك.",
+      descPlaceholder: "صف ما حدث...",
+      region: "المنطقة / الولاية",
+      regionPlaceholder: "مثل أديس أبابا",
+      city: "المدينة / المقاطعة",
+      cityPlaceholder: "مثل بولي",
+      btnCancel: "إلغاء",
+      btnSubmit: "إرسال بأمان",
+      successTitle: "تم إرسال التقرير بنجاح",
+      successDesc: "يرجى حفظ هذا الرمز. سيتم عرضه مرة واحدة فقط وهو مطلوب لمتابعة حالتك.",
+      btnSaved: "لقد حفظت الرمز الخاص بي",
+      categories: {
+        sexual: "العنف الجنسي والاغتصاب",
+        domestic: "العنف المنزلي / عنف الشريك الحميم",
+        physical: "الاعتداء الجسدي والضرب",
+        harassment: "التحرش والملاحقة",
+        child: "الممارسات الضارة واستغلال الأطفال",
+        other: "إساءة أخرى غير محددة"
+      },
+      urgencies: {
+        low: "منخفض",
+        medium: "قياسي",
+        high: "أولوية عالية",
+        critical: "تهديد فوري / طوارئ طبية"
+      }
+    }
   }
 } as Record<string, Record<string, string>>

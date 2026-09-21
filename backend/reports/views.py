@@ -45,7 +45,7 @@ class IncidentReportViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, 
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 
 class AdminIncidentViewSet(viewsets.ModelViewSet):
     queryset = IncidentReport.objects.all()
@@ -64,3 +64,9 @@ class AdminResponderOrgViewSet(viewsets.ModelViewSet):
     queryset = ResponderOrg.objects.all().order_by('country', 'tier', 'name')
     serializer_class = ResponderOrgSerializer
     permission_classes = [IsAdminUser]
+
+
+class PublicResponderOrgViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = ResponderOrg.objects.filter(is_active=True).order_by('country', 'tier', 'name')
+    serializer_class = ResponderOrgSerializer
+    permission_classes = [AllowAny]
