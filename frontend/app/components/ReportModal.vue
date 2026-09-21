@@ -21,7 +21,9 @@
 
         <form v-else @submit.prevent="submitReport" class="space-y-4">
           <div v-if="!isOnline" class="bg-yellow-50 text-yellow-800 p-3 rounded-md text-sm mb-4 border border-yellow-200 flex items-start gap-2">
-            <UIcon name="i-heroicons-wifi" class="w-5 h-5 shrink-0 mt-0.5" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 shrink-0 mt-0.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
+            </svg>
             <div>
               <strong>You are offline.</strong> Don't worry, your progress is automatically saved to this device. You can submit the report safely once your connection is restored.
             </div>
