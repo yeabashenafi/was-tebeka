@@ -13,17 +13,20 @@
 - **Zero-Knowledge Anonymous Reporting**: Survivors submit incidents without phone numbers, emails, names, or pinpoint GPS coordinates.
 - **Cryptographic Case Tracking**: Dynamic milestone timelines tracked via one-way SHA-256 hashed claim tokens.
 - **Statutory Civic Rights Portal**: Plain-language legal guides and myth-busting tools mapped directly to national codices:
+
   - **Ethiopia**: FDRE Criminal Code (Arts. 564, 565, 620)
   - **Kenya**: Protection Against Domestic Violence Act (PADV 2015) & Sexual Offences Act (2006)
   - **Côte d'Ivoire**: Code Pénal (Arts. 381–382, Loi N° 2021-893)
 - **WHO 72-Hour Clinical Triage**: Automated urgency escalation for incidents within the 72-hour Post-Exposure Prophylaxis (PEP) window.
 - **Universal Civic Accessibility (WCAG 2.1 AA)**:
+
   - In-browser native Web Speech API Text-to-Speech (TTS) for non-literate and visually impaired users.
   - Skip-to-content keyboard navigation and ARIA live-announcements.
   - High-contrast, trauma-informed interface with zero external accessibility library bloat.
 - **Pan-African Localization**: Interface and rights content localized in English, Amharic (አማርኛ), French (Français), Swahili (Kiswahili), and Arabic (العربية).
 - **Persistent Quick Exit Panic Protocol**: Instant state purge and redirect to a neutral search page to protect against device inspection.
 - **Multi-Agency Coordination Desk**: Administrative portal allowing verified civil society partners (EWLA, AWSAD, hospital GBV units) to triage cases and append verified referral timelines.
+- **Offline-Resilient Incident Caching**: Detects network dropouts automatically during submission, queuing encrypted payloads client-side with a non-blocking alert so survivors in low-connectivity areas can retry instantly once connection returns—without having to re-enter sensitive details.
 
 ---
 
@@ -99,7 +102,7 @@ This project strictly adheres to privacy-by-design principles:
 - **One-Way Token Hashing** : Case tracking tokens are stored in the database exclusively as SHA-256 cryptographic hashes; the raw plaintext token is only shown to the survivor once upon submission.
 - **Zero Third-Party Telemetry** : Absolute absence of tracking cookies, ad network pixels, or third-party behavioral analytics.
 - **Client Session Sanitization** : The Quick Exit protocol immediately clears local session memory, cancels speech synthesis, and executes a hard document replacement to protect against device snatching.
-
+- **Client-Side Ephemeral Queue**: Offline drafts are held strictly in temporary client storage and are immediately purged on hard session destruction or Quick Exit execution.
 
 ## 🤖 AI Assistance & Tooling Disclosure
 
