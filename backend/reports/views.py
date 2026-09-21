@@ -45,7 +45,7 @@ class IncidentReportViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, 
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 class AdminIncidentViewSet(viewsets.ModelViewSet):
     queryset = IncidentReport.objects.all()
@@ -55,4 +55,12 @@ class AdminIncidentViewSet(viewsets.ModelViewSet):
 class AdminTimelineViewSet(viewsets.ModelViewSet):
     queryset = TimelineEvent.objects.all()
     serializer_class = AdminTimelineEventCreateSerializer
+    permission_classes = [IsAdminUser]
+
+from .models import ResponderOrg
+from .serializers import ResponderOrgSerializer
+
+class AdminResponderOrgViewSet(viewsets.ModelViewSet):
+    queryset = ResponderOrg.objects.all().order_by('country', 'tier', 'name')
+    serializer_class = ResponderOrgSerializer
     permission_classes = [IsAdminUser]
