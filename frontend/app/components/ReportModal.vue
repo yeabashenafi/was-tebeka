@@ -9,7 +9,7 @@
           </div>
         </template>
 
-        <div v-if="submittedToken" class="text-center py-6">
+        <div v-if="submittedToken" class="text-center py-6" aria-live="polite">
           <UIcon name="i-heroicons-check-circle" class="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h4 class="text-xl font-bold mb-2">{{ t?.reportModal?.successTitle || 'Report Submitted Successfully' }}</h4>
           <p class="text-gray-600 mb-6 text-sm">{{ t?.reportModal?.successDesc || 'Please save this claim token. It will only be shown once and is required to track your case.' }}</p>
@@ -21,27 +21,27 @@
 
         <form v-else @submit.prevent="submitReport" class="space-y-4">
           <UFormField :label="t?.reportModal?.category || 'Incident Category'" required>
-            <USelect v-model="reportForm.category" :items="categories" label-key="label" value-key="value" />
+            <USelect v-model="reportForm.category" aria-required="true" :items="categories" label-key="label" value-key="value" />
           </UFormField>
           
           <UFormField :label="t?.reportModal?.urgency || 'Urgency Level'" required>
-            <USelect v-model="reportForm.urgency" :items="urgencies" label-key="label" value-key="value" />
+            <USelect v-model="reportForm.urgency" aria-required="true" :items="urgencies" label-key="label" value-key="value" />
           </UFormField>
 
           <UFormField :label="t?.reportModal?.desc || 'Description'" :help="t?.reportModal?.descHelp || 'Do not include your real name or contact details.'" required>
-            <UTextarea v-model="reportForm.description" :rows="4" :placeholder="t?.reportModal?.descPlaceholder || 'Describe what happened...'" />
+            <UTextarea v-model="reportForm.description" aria-required="true" :rows="4" :placeholder="t?.reportModal?.descPlaceholder || 'Describe what happened...'" />
           </UFormField>
 
           <div class="space-y-4">
             <UFormField label="Country / ሀገር" required>
-              <USelect v-model="reportForm.country" :items="africanCountries" />
+              <USelect v-model="reportForm.country" aria-required="true" :items="africanCountries" />
             </UFormField>
             <div class="grid grid-cols-2 gap-4">
               <UFormField :label="t?.reportModal?.region || 'Region / State'" required>
-                <UInput v-model="reportForm.region_state" :placeholder="t?.reportModal?.regionPlaceholder || 'e.g. Addis Ababa'" required />
+                <UInput v-model="reportForm.region_state" aria-required="true" :placeholder="t?.reportModal?.regionPlaceholder || 'e.g. Addis Ababa'" required />
               </UFormField>
               <UFormField :label="t?.reportModal?.city || 'City / District'" required>
-                <UInput v-model="reportForm.city_district" :placeholder="t?.reportModal?.cityPlaceholder || 'e.g. Bole'" required />
+                <UInput v-model="reportForm.city_district" aria-required="true" :placeholder="t?.reportModal?.cityPlaceholder || 'e.g. Bole'" required />
               </UFormField>
             </div>
           </div>

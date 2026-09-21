@@ -55,7 +55,7 @@
       </aside>
 
       <!-- Main Content -->
-      <main class="flex-1 p-6 overflow-y-auto bg-gray-50">
+      <main id="main-content" tabindex="-1" class="flex-1 p-6 overflow-y-auto bg-gray-50">
         <NuxtPage />
       </main>
     </div>

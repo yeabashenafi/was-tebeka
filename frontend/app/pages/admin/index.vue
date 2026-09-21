@@ -63,7 +63,9 @@
           <div class="flex items-center gap-4 border-t border-gray-100 pt-4">
             <UInput v-model="q" icon="i-heroicons-magnifying-glass" placeholder="Search ID, category, location, or notes..." class="flex-1 max-w-sm" />
             <div class="flex items-center gap-2 ml-auto">
-              <span class="text-sm text-gray-500 font-medium">Status:</span>
+              <span class="text-sm text-gray-500 font-medium">Country:</span>
+              <USelect v-model="filterCountry" :items="availableCountries" class="w-32" />
+              <span class="text-sm text-gray-500 font-medium ml-2">Status:</span>
               <USelect v-model="filterStatus" :items="['ALL', ...statusOptions]" class="w-48" />
             </div>
           </div>
@@ -71,6 +73,12 @@
       </template>
       
       <UTable :columns="columns" :data="paginatedRows" @select="openIncident" class="w-full" v-model:sort="sort" :loading="isLoading">
+        <template #id-cell="{ row }">
+          <span class="font-mono text-gray-500" :title="row.original ? row.original.id : row.id">{{ (row.original ? row.original.id : row.id).substring(0, 8) }}</span>
+        </template>
+        <template #id-data="{ row }">
+          <span class="font-mono text-gray-500" :title="row.original ? row.original.id : row.id">{{ (row.original ? row.original.id : row.id).substring(0, 8) }}</span>
+        </template>
         <template #urgency-cell="{ row }">
           <span :class="`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getUrgencyBadgeClass(row.original ? row.original.urgency : row.urgency)}`">
             {{ (row.original ? row.original.urgency : row.urgency).replace(/_/g, ' ') }}
@@ -208,10 +216,15 @@ const isLoading = ref(false)
 
 // Table features: Pagination, Sorting, Filtering
 const q = ref('')
+const availableCountries = computed(() => {
+  const countries = new Set(incidents.value.map((i: any) => i.country).filter(Boolean))
+  return ['ALL', 'Ethiopia', ...Array.from(countries).filter(c => c !== 'Ethiopia').sort()]
+})
 const filterStatus = ref('ALL')
+const filterCountry = ref('Ethiopia')
 const page = ref(1)
 const pageCount = ref(10)
-const sort = ref({ column: 'created_at', direction: 'desc' })
+const sort = ref({ column: 'urgency', direction: 'desc' })
 
 const filteredRows = computed(() => {
   let data = [...incidents.value]
@@ -219,6 +232,11 @@ const filteredRows = computed(() => {
   // 1. Status Filter
   if (filterStatus.value !== 'ALL') {
     data = data.filter((i: any) => i.status === filterStatus.value)
+  }
+
+  // 1.5 Country Filter
+  if (filterCountry.value !== 'ALL') {
+    data = data.filter((i: any) => i.country === filterCountry.value)
   }
 
   // 2. Search Filter
@@ -240,6 +258,27 @@ const filteredRows = computed(() => {
     data.sort((a: any, b: any) => {
       let valA = a[sort.value.column]
       let valB = b[sort.value.column]
+      
+      if (sort.value.column === 'urgency') {
+        const urgencyWeight: Record<string, number> = {
+          'CRITICAL': 4,
+          'HIGH': 3,
+          'MEDIUM': 2,
+          'LOW': 1
+        }
+        const wA = urgencyWeight[valA] || 0
+        const wB = urgencyWeight[valB] || 0
+        if (wA < wB) return sort.value.direction === 'asc' ? -1 : 1
+        if (wA > wB) return sort.value.direction === 'asc' ? 1 : -1
+        
+        // Secondary sort by date descending if urgency is equal
+        const dateA = new Date(a.created_at).getTime()
+        const dateB = new Date(b.created_at).getTime()
+        if (dateA < dateB) return 1
+        if (dateA > dateB) return -1
+        return 0
+      }
+
       valA = valA === null || valA === undefined ? '' : valA
       valB = valB === null || valB === undefined ? '' : valB
       
@@ -253,7 +292,7 @@ const filteredRows = computed(() => {
 })
 
 // Reset to page 1 if filters change
-watch([q, filterStatus], () => {
+watch([q, filterStatus, filterCountry], () => {
   page.value = 1
 })
 
@@ -289,6 +328,7 @@ const columns = [
   { accessorKey: 'category', key: 'category', header: 'Category', sortable: true },
   { id: 'urgency', accessorKey: 'urgency', key: 'urgency', header: 'Urgency', sortable: true },
   { id: 'status', accessorKey: 'status', key: 'status', header: 'Status', sortable: true },
+  { accessorKey: 'country', key: 'country', header: 'Country', sortable: true },
   { accessorKey: 'city_district', key: 'city_district', header: 'Location', sortable: true },
   { accessorKey: 'created_at', key: 'created_at', header: 'Reported', sortable: true, cell: (info: any) => new Date(info.getValue ? info.getValue() : info.created_at).toLocaleDateString() },
   { id: 'actions', key: 'actions', accessorKey: 'actions', header: 'Actions' }

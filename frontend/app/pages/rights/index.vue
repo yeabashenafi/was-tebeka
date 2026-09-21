@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-50 flex flex-col">
     <AppHeader />
 
-    <main class="flex-1 pt-[72px]">
+    <main id="main-content" tabindex="-1" class="flex-1 pt-[72px]">
       <section class="bg-primary-900 text-white py-16">
         <UContainer class="max-w-4xl text-center">
           <h1 class="text-3xl md:text-5xl font-bold mb-6">{{ t.rightsTitle }}</h1>
@@ -38,13 +38,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <UCard v-for="(cat, idx) in filteredCategories" :key="idx" class="h-full flex flex-col hover:shadow-md transition-shadow">
               <template #header>
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-primary-100 flex items-center justify-center text-primary-600 shrink-0">
-                    <UIcon :name="cat.icon" class="w-6 h-6" />
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded bg-primary-100 flex items-center justify-center text-primary-600 shrink-0">
+                      <UIcon :name="cat.icon" class="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h2 class="text-lg font-bold text-gray-900">{{ cat.title }}</h2>
+                    </div>
                   </div>
-                  <div>
-                    <h2 class="text-lg font-bold text-gray-900">{{ cat.title }}</h2>
-                  </div>
+                  <UButton 
+                    size="xs" 
+                    color="gray" 
+                    variant="ghost" 
+                    :icon="speakingIdx === idx ? 'i-heroicons-stop-circle' : 'i-heroicons-speaker-wave'"
+                    :label="speakingIdx === idx ? 'Stop' : 'Read Aloud'"
+                    :aria-label="speakingIdx === idx ? 'Stop reading' : 'Read ' + cat.title + ' aloud'"
+                    @click="toggleSpeak(idx, cat)"
+                  />
                 </div>
               </template>
               
@@ -100,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeUnmount, watch } from 'vue'
 import { getLocalizedRightsContent } from '~/utils/rightsContent'
 
 const { t, selectedLanguage } = useLocales()
@@ -125,6 +136,7 @@ const localizedContent = computed(() => {
 const currentCategories = computed(() => localizedContent.value.categories)
 const currentMyths = computed(() => localizedContent.value.myths)
 
+
 const filteredCategories = computed(() => {
   const cats = currentCategories.value
   if (!searchQuery.value) return cats
@@ -136,4 +148,54 @@ const filteredCategories = computed(() => {
     (cat.keywords && cat.keywords.some((kw: string) => kw.includes(q)))
   )
 })
+
+const speakingIdx = ref<number | null>(null)
+
+const toggleSpeak = (idx: number, cat: any) => {
+  if (typeof window === 'undefined' || !window.speechSynthesis) return
+
+  if (speakingIdx.value === idx) {
+    window.speechSynthesis.cancel()
+    speakingIdx.value = null
+    return
+  }
+
+  window.speechSynthesis.cancel()
+  speakingIdx.value = idx
+
+  const textToRead = `${cat.title}. ${cat.description}. ${t.value.rightsSurvivorHeading}. ${cat.rights.join('. ')}`
+  const utterance = new SpeechSynthesisUtterance(textToRead)
+  
+  const langMap: Record<string, string> = {
+    'en': 'en-US',
+    'am': 'am-ET',
+    'fr': 'fr-FR',
+    'sw': 'sw-KE',
+    'ar': 'ar-SA'
+  }
+  utterance.lang = langMap[selectedLanguage.value] || 'en-US'
+  
+  utterance.onend = () => {
+    if (speakingIdx.value === idx) speakingIdx.value = null
+  }
+  utterance.onerror = () => {
+    if (speakingIdx.value === idx) speakingIdx.value = null
+  }
+  
+  window.speechSynthesis.speak(utterance)
+}
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+  }
+})
+
+watch([selectedLanguage, selectedCountry], () => {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+    speakingIdx.value = null
+  }
+})
+
 </script>
