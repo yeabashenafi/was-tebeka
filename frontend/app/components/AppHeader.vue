@@ -25,7 +25,7 @@
     </div>
     <div class="flex items-center gap-2 md:gap-4">
       <USelect
-        v-model="selectedLanguage"
+        v-model="selectedLanguage" aria-label="Select Interface Language"
         :items="languages"
         label-key="label"
         value-key="value"
@@ -35,7 +35,7 @@
         class="w-32 md:w-40 hidden sm:block"
       />
       <USelect
-        v-model="selectedLanguage"
+        v-model="selectedLanguage" aria-label="Select Interface Language"
         :items="languages"
         label-key="label"
         value-key="value"
@@ -52,7 +52,7 @@
         variant="solid"
         icon="i-heroicons-arrow-right-on-rectangle"
         :label="t.quickExit"
-        @click="quickExit"
+        @click="quickExit" aria-label="Quick Exit: Immediately clear session and navigate to Google"
         class="font-bold uppercase tracking-wider text-xs md:text-sm shadow-md transition-transform hover:scale-105"
       />
     </div>
@@ -90,7 +90,7 @@
               variant="solid"
               icon="i-heroicons-arrow-right-on-rectangle"
               :label="t.quickExit"
-              @click="quickExit"
+              @click="quickExit" aria-label="Quick Exit: Immediately clear session and navigate to Google"
               block
               class="font-bold uppercase tracking-wider shadow-md"
             />
@@ -108,6 +108,9 @@ const { languages, selectedLanguage, t } = useLocales()
 const isMobileMenuOpen = ref(false)
 
 const quickExit = () => {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+  }
   try {
     if (typeof window !== 'undefined') {
       window.localStorage.clear()

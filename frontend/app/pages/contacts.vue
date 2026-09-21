@@ -2,7 +2,7 @@
   <UApp :dir="selectedLanguage === 'ar' ? 'rtl' : 'ltr'">
     <div class="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans selection:bg-primary-100" :dir="selectedLanguage === 'ar' ? 'rtl' : 'ltr'">
       <AppHeader />
-      <main class="pt-24 flex-1 container mx-auto px-4 max-w-5xl py-8">
+      <main id="main-content" tabindex="-1" class="pt-24 flex-1 container mx-auto px-4 max-w-5xl py-8">
                 <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h1 class="text-3xl font-bold mb-2">{{ t?.contacts?.title || 'Emergency Contacts & Partner Organizations' }}</h1>
