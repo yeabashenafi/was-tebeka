@@ -52,7 +52,7 @@
                     color="gray" 
                     variant="ghost" 
                     :icon="speakingIdx === idx ? 'i-heroicons-stop-circle' : 'i-heroicons-speaker-wave'"
-                    :label="speakingIdx === idx ? 'Stop' : 'Read Aloud'"
+                    :label="speakingIdx === idx ? (t.stopReading || 'Stop') : (t.readAloud || 'Read Aloud')"
                     :aria-label="speakingIdx === idx ? 'Stop reading' : 'Read ' + cat.title + ' aloud'"
                     @click="toggleSpeak(idx, cat)"
                   />
