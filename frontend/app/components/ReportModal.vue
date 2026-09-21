@@ -20,6 +20,12 @@
         </div>
 
         <form v-else @submit.prevent="submitReport" class="space-y-4">
+          <div v-if="!isOnline" class="bg-yellow-50 text-yellow-800 p-3 rounded-md text-sm mb-4 border border-yellow-200 flex items-start gap-2">
+            <UIcon name="i-heroicons-wifi" class="w-5 h-5 shrink-0 mt-0.5" />
+            <div>
+              <strong>You are offline.</strong> Don't worry, your progress is automatically saved to this device. You can submit the report safely once your connection is restored.
+            </div>
+          </div>
           <UFormField :label="t?.reportModal?.category || 'Incident Category'" required>
             <USelect v-model="reportForm.category" aria-required="true" :items="categories" label-key="label" value-key="value" />
           </UFormField>
@@ -57,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -111,7 +117,37 @@ const africanCountries = [
   'Zambia', 'Zimbabwe'
 ]
 
+const isOnline = ref(true)
+
+onMounted(() => {
+  // Load draft from localStorage
+  try {
+    const saved = localStorage.getItem('was_tebeka_draft')
+    if (saved) {
+      reportForm.value = { ...defaultForm, ...JSON.parse(saved) }
+    }
+  } catch(e) {}
+
+  // Setup offline detection
+  if (typeof window !== 'undefined') {
+    isOnline.value = navigator.onLine
+    window.addEventListener('online', () => isOnline.value = true)
+    window.addEventListener('offline', () => isOnline.value = false)
+  }
+})
+
+// Auto-save draft
+watch(reportForm, (newVal) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('was_tebeka_draft', JSON.stringify(newVal))
+  }
+}, { deep: true })
+
 const submitReport = async () => {
+  if (!isOnline.value) {
+    alert("You are currently offline. Your report has been saved as a draft locally. Please try again when you have an internet connection.")
+    return
+  }
   if (!reportForm.value.description) return
   isSubmitting.value = true
   try {
@@ -121,6 +157,8 @@ const submitReport = async () => {
     })
     // @ts-ignore
     submittedToken.value = res.raw_token
+    // Clear draft on success
+    if (typeof window !== 'undefined') localStorage.removeItem('was_tebeka_draft')
   } catch (err) {
     console.error(err)
     alert("Failed to submit report. Ensure backend is running.")
