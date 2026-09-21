@@ -177,9 +177,13 @@
             
             <div v-if="selectedIncident.timeline && selectedIncident.timeline.length" class="mt-6">
                <h4 class="font-bold mb-2">History</h4>
-               <ul class="space-y-2">
-                 <li v-for="(t, i) in selectedIncident.timeline" :key="i" class="text-sm bg-gray-100 p-2 rounded">
-                   <strong>{{ t.title }}</strong> - {{ new Date(t.timestamp).toLocaleDateString() }}
+               <ul class="space-y-3">
+                 <li v-for="(t, i) in selectedIncident.timeline" :key="i" class="text-sm bg-gray-100 p-3 rounded">
+                   <div class="flex justify-between items-start mb-1">
+                     <strong class="text-gray-900">{{ t.title }}</strong>
+                     <span class="text-gray-500 text-xs">{{ new Date(t.timestamp).toLocaleString() }}</span>
+                   </div>
+                   <p v-if="t.description" class="text-gray-600 whitespace-pre-wrap">{{ t.description }}</p>
                  </li>
                </ul>
             </div>
@@ -401,6 +405,10 @@ const updateStatus = async () => {
 const referCase = async () => {
   if (!selectedIncident.value || !selectedReferral.value) return
   isReferring.value = true
+  
+  const org = fetchedResponders.value.find(o => `${o.name} (${o.tier})` === selectedReferral.value)
+  const contactDetails = org ? `\n\nJurisdiction: ${org.jurisdiction}\nContact Info: ${org.contact}` : ''
+  
   try {
     // Update status
     await $fetch(`${config.public.apiBase}/admin/incidents/${selectedIncident.value.id}/`, {
@@ -416,7 +424,7 @@ const referCase = async () => {
       body: {
         incident: selectedIncident.value.id,
         title: `Referred to ${selectedReferral.value}`,
-        description: `Case automatically referred to partner organization: ${selectedReferral.value}.`
+        description: `Case automatically referred to partner organization: ${selectedReferral.value}.${contactDetails}`
       }
     })
 
