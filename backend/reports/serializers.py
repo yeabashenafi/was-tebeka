@@ -44,3 +44,10 @@ class AdminIncidentSerializer(serializers.ModelSerializer):
             'status', 'created_at', 'updated_at', 'timeline'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', 'timeline']
+
+from .models import ResponderOrg
+
+class ResponderOrgSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResponderOrg
+        fields = '__all__'

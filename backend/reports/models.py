@@ -17,6 +17,7 @@ class IncidentReport(models.Model):
         ASSIGNED = 'ASSIGNED', 'Assigned to Support Organization'
         ACTION_IN_PROGRESS = 'ACTION_IN_PROGRESS', 'Protective Action in Progress'
         RESOLVED = 'RESOLVED', 'Case Resolution / Protective Action Completed'
+        REFERRED_TO_PARTNER = 'REFERRED_TO_PARTNER', 'Referred to Partner Organization'
 
     class Category(models.TextChoices):
         SEXUAL_VIOLENCE = 'SEXUAL_VIOLENCE', 'Sexual Violence & Rape'
@@ -80,3 +81,14 @@ class TimelineEvent(models.Model):
     def __str__(self):
         return f"{self.incident.id} - {self.title}"
 
+
+class ResponderOrg(models.Model):
+    name = models.CharField(max_length=200)
+    tier = models.CharField(max_length=100) # e.g. "Legal Defense", "Shelter", "Medical"
+    jurisdiction = models.CharField(max_length=150)
+    country = models.CharField(max_length=100, default='Ethiopia')
+    contact = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.tier})"
